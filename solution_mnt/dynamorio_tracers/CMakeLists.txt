@@ -1,0 +1,31 @@
+cmake_minimum_required(VERSION 3.5.1)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(OPT_CFLAGS "${OPT_CFLAGS} -DDEBUG")
+find_package(DynamoRIO EXACT REQUIRED PATHS /root/DynamoRIO)
+if (NOT DynamoRIO_FOUND)
+  message(FATAL_ERROR "DynamoRIO package required to build")
+endif(NOT DynamoRIO_FOUND)
+option(OPTIMIZE_SAMPLES
+  "Build samples with optimizations to increase the chances of clean call inlining (overrides debug flags)"
+  ON)
+
+add_library(memtrace_simple SHARED "memtrace_simple.c;utils.c")
+use_DynamoRIO_extension(memtrace_simple "drmgr")
+use_DynamoRIO_extension(memtrace_simple "drreg")
+use_DynamoRIO_extension(memtrace_simple "drutil")
+use_DynamoRIO_extension(memtrace_simple "drx")
+configure_DynamoRIO_client(memtrace_simple)
+
+add_library(memval_simple SHARED "memval_simple.c;utils.c")
+use_DynamoRIO_extension(memval_simple "drmgr")
+use_DynamoRIO_extension(memval_simple "drreg")
+use_DynamoRIO_extension(memval_simple "drutil")
+use_DynamoRIO_extension(memval_simple "drx")
+configure_DynamoRIO_client(memval_simple)
+
+add_library(instrace_simple SHARED "instrace_simple.c;utils.c")
+use_DynamoRIO_extension(instrace_simple "drmgr")
+use_DynamoRIO_extension(instrace_simple "drreg")
+use_DynamoRIO_extension(instrace_simple "drutil")
+use_DynamoRIO_extension(instrace_simple "drx")
+configure_DynamoRIO_client(instrace_simple)

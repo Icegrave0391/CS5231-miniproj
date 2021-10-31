@@ -1,0 +1,8 @@
+files_only_for_ta
+*solutioninput
+*normalinput
+*.tif
+*.log
+.gdb_history
+peda-session*
+core
