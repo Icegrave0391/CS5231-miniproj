@@ -6,3 +6,6 @@ files_only_for_ta
 .gdb_history
 peda-session*
 core
+*.vscode
+**/build
+.gitignore.swp

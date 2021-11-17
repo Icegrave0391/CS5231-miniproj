@@ -135,6 +135,13 @@ memtrace(void *drcontext)
      */
     for (mem_ref = (mem_ref_t *)data->buf_base; mem_ref < buf_ptr; mem_ref++) {
         /* We use PIFX to avoid leading zeroes and shrink the resulting file. */
+
+
+        ptr_uint_t insn_addr = mem_ref->addr;
+        if (insn_addr > 0x7f000000){
+            continue;
+        }
+
         fprintf(data->logf, "" PIFX ": %2d, %s\n", (ptr_uint_t)mem_ref->addr,
                 mem_ref->size,
                 (mem_ref->type > REF_TYPE_WRITE)

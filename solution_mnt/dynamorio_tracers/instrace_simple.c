@@ -117,6 +117,12 @@ instrace(void *drcontext)
      * for repeated printing that dominates performance, as the printing does here.
      */
     for (ins_ref = (ins_ref_t *)data->buf_base; ins_ref < buf_ptr; ins_ref++) {
+        // instruction address filter 
+        ptr_uint_t pc_addr = ins_ref->pc;
+        ptr_uint_t external_func_addr_thres = 0x7fffffff0;  // it's ok just select a ramdom threshold
+        if (pc_addr > external_func_addr_thres){
+            continue;
+        } 
         /* We use PIFX to avoid leading zeroes and shrink the resulting file. */
         fprintf(data->logf, PIFX ",%s\n", (ptr_uint_t)ins_ref->pc,
                 decode_opcode_name(ins_ref->opcode));
