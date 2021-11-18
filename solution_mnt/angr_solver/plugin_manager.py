@@ -16,7 +16,9 @@ class PluginManager:
 
     def register_callbacks(self, state: angr.SimState):
         state.inspect.b("mem_read", when=BP_AFTER, action=self.mem_read)
+        state.inspect.b("mem_read", when=BP_BEFORE, action=self.mem_read_before)
         state.inspect.b("mem_write", when=BP_AFTER, action=self.mem_write)
+        state.inspect.b("mem_write", when=BP_BEFORE, action=self.mem_write_before)
         state.inspect.b("simprocedure", when=BP_AFTER, action=self.simprocedure)
         state.inspect.b("reg_read", when=BP_AFTER, action=self.reg_read)
         state.inspect.b("reg_write", when=BP_AFTER, action=self.reg_write)
@@ -31,10 +33,18 @@ class PluginManager:
         for plgin in self.plugins:
             plgin.mem_read(state)
     
+    def mem_read_before(self, state: angr.SimState):
+            for plgin in self.plugins:
+                plgin.mem_read_before(state)
+
     def mem_write(self, state: angr.SimState):
         for plgin in self.plugins:
             plgin.mem_write(state)
     
+    def mem_write_before(self, state: angr.SimState):
+        for plgin in self.plugins:
+            plgin.mem_write_before(state)
+
     def simprocedure(self, state: angr.SimState):
         for plgin in self.plugins:
             plgin.simprocedure(state)

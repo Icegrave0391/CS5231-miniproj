@@ -8,4 +8,5 @@ peda-session*
 core
 *.vscode
 **/build
+**/*.pyc
 .gitignore.swp

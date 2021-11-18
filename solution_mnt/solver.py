@@ -3,11 +3,13 @@ import logging
 import sys
 
 from angr.exploration_techniques.tracer import TracerDesyncError
+from collections import defaultdict
 import claripy
 
 from angr_solver.trace_parser import Parser
 from angr_solver.plugin_manager import PluginManager
 from angr_solver.procedure_manager import ProcedureManager
+from angr_solver.taint_annos import *
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
@@ -34,17 +36,41 @@ def _init_seedcontent(state, fpath, use_symbolic: False):
 
 
 class SimInputPlugin(angr.SimStatePlugin):
-    def __init__(self, fpath, seedcontent, use_symbolic=True):
+    def __init__(self, fpath, seedcontent, use_symbolic=True, \
+        seedcontent_addr=None, seedcontent_len=None):
         super().__init__()
         self.seedfile_path = fpath
         self.use_symbolic = use_symbolic
         self.seedcontent = _init_seedcontent(self.state, self.seedfile_path, use_symbolic) \
             if seedcontent is None else seedcontent
-        
+        self.seedcontent_addr = seedcontent_addr
+        self.seedcontent_len = seedcontent_len
+
     @angr.SimStatePlugin.memo
     def copy(self, memo):
-        return SimInputPlugin(self.seedfile_path, self.seedcontent, self.use_symbolic)
-        
+        return SimInputPlugin(self.seedfile_path, self.seedcontent, \
+            self.use_symbolic, self.seedcontent_addr, self.seedcontent_len)
+
+
+class SimTaintEngine(angr.SimStatePlugin):
+    """
+    Taint engine, the taint_dict is used for byte-level address taint
+    The value of taint_dict is the seed_offset to the seedinput_file
+    """
+    def __init__(self, taint_dict=defaultdict(lambda: -1)):
+        super().__init__()
+        self.taint_dict = taint_dict
+
+    def get_region_taints(self, start, end):
+        """ [start, end)"""
+        taints = []
+        for i in range(start, end):
+            taints.append(self.taint_dict[i])
+        return taints
+
+    @angr.SimStatePlugin.memo
+    def copy(self, _memo):
+        return SimTaintEngine(self.taint_dict)
 
 if __name__ == "__main__":
 
@@ -55,8 +81,12 @@ if __name__ == "__main__":
     init_state = project.factory.entry_state(args=[bin_path, arg])
     # register plugin
     log.info(f"Registering siminput state plugin...")
-    simcontent = _init_seedcontent(init_state, arg, use_symbolic=True)
-    init_state.register_plugin("seedfile", SimInputPlugin(arg, simcontent, use_symbolic=True))
+    use_symbolic = False
+    simcontent = _init_seedcontent(init_state, arg, use_symbolic=use_symbolic)
+    
+    init_state.register_plugin("seedfile", SimInputPlugin(arg, simcontent, use_symbolic=use_symbolic))
+    init_state.register_plugin("taintengine", SimTaintEngine())
+
     simgr = project.factory.simgr(init_state)
     plgin_manager = PluginManager(project, simgr)
     proc_manager = ProcedureManager(project)

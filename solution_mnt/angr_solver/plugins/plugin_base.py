@@ -17,6 +17,12 @@ class PluginBase:
     def mem_read(self, state: angr.SimState):
         pass
 
+    def mem_read_before(self, state: angr.SimState):
+        pass
+
+    def mem_write_before(self, state: angr.SimState):
+        pass
+
     def mem_write(self, state: angr.SimState):
         pass
     

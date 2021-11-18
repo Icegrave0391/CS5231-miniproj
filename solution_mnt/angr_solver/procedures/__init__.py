@@ -4,5 +4,6 @@ all_hooks = {
     "fopen": Fopen,
     "fread": Fread,
     "malloc": Malloc,
-    "free": Free
+    "free": Free,
+    "strcpy": Strcpy
 }

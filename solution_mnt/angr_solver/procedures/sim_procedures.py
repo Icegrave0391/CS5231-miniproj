@@ -86,6 +86,14 @@ class Fread(angr.SimProcedure):
         if simfd is None:
             return -1
         ret = simfd.read(dst, size * nm)
+
+        # record dst as state.seedinput.seedcontent_addr
+        seed_dst_addr = self.state.solver.eval(dst)
+        length = self.state.solver.eval(ret)
+        self.state.seedfile.seedcontent_addr = self.state.solver.eval(dst)
+        # initialize the TaintEngine of the state
+        for off, addr in enumerate(range(seed_dst_addr, seed_dst_addr + length)):
+            self.state.taintengine.taint_dict[addr] = off
         return self.state.solver.If(self.state.solver.Or(size == 0, nm == 0), 0, ret // size)
 
 
@@ -117,3 +125,34 @@ class Free(angr.SimProcedure):
             except KeyError:
                 pass
         self.state.heap._free(ptr)
+    
+class Strcpy(angr.SimProcedure):
+
+    def run(self, dst, src):
+        strlen = angr.SIM_PROCEDURES['libc']['strlen']
+        strncpy = angr.SIM_PROCEDURES['libc']['strncpy']
+        src_len = self.inline_call(strlen, src)
+        dst_addr_int = self.state.solver.eval(dst)
+        # taint propagate
+
+
+        # check invalid heap strcpy
+
+        for heap_addr, v in self.state.globals["heap"].items():
+            heap_sz, valid = v[0], v[1]
+            if dst_addr_int in range(heap_addr, heap_addr + heap_sz):
+                # write to heap, check
+                str_len_int = self.state.solver.eval(src_len.ret_expr)
+                if (dst_addr_int + str_len_int - 1) <= heap_addr + heap_sz:
+                    break
+                # invalid write
+                log.critical(f"HEAP ERROR.\n    \
+                        write content: {self.state.memory.load(src, str_len_int)}\n    \
+                        insn address: {hex(self.state.addr)}\n   \
+                        mem address: {hex(dst_addr_int)}")
+                import IPython; IPython.embed()
+
+
+
+        ret_expr = self.inline_call(strncpy, dst, src, src_len.ret_expr+1, src_len=src_len.ret_expr).ret_expr
+        return ret_expr
