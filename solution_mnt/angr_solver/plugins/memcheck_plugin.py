@@ -1,3 +1,4 @@
+from re import S
 import angr
 import logging
 import inspect
@@ -5,7 +6,7 @@ import inspect
 from ..taint_annos import *
 from angr.errors import SimValueError
 log = logging.getLogger(__name__)
-log.setLevel(logging.DEBUG)
+log.setLevel(logging.WARNING)
 
 from ..procedure_manager import is_inline_proc
 from .plugin_base import PluginBase
@@ -90,10 +91,25 @@ class MemcheckPlugin(PluginBase):
             size, vaild = val
             heap_overflow_loc = heap_ptr + size
 
-            if self._loc_in_heap_range(state, heap_overflow_loc):
-                continue
+            # if self._loc_in_heap_range(state, heap_overflow_loc):
+            #     continue
+            # write heap region
+            if write_addr_int in range(heap_ptr, heap_ptr + size):
+                # vaild write
+                if (write_addr_int + write_addr_length) <= heap_ptr + size:
+                    break
+                # overflow
+                log.critical(f"HEAP ERROR.\n    \
+                        write content: {write_addr_content}\n    \
+                        insn address: {hex(state.addr)}\n   \
+                        mem address: {hex(write_addr_int)}\n    \
+                        overflow address: {hex(heap_ptr + size)}\n  \
+                        seedinput offset: {state.taintengine.taint_dict[heap_ptr + size]}")
+                # mark taint
+                state.taintengine.mark_offset = state.taintengine.taint_dict[heap_ptr + size]
 
-            if write_addr_int == heap_overflow_loc or \
+            # overflow
+            elif (write_addr_int == heap_overflow_loc and not self._loc_in_heap_range(state, heap_overflow_loc)) or \
                 (write_addr_int in range(heap_ptr, heap_ptr + size) and not vaild) or\
                 write_addr_int in range(heap_ptr - 8, heap_ptr):
 
@@ -101,10 +117,11 @@ class MemcheckPlugin(PluginBase):
                 log.critical(f"HEAP ERROR.\n    \
                         write content: {write_content}\n    \
                         insn address: {hex(state.addr)}\n   \
-                        mem address: {hex(write_addr_int)}")
-
-                import IPython; IPython.embed()
-
+                        mem address: {hex(write_addr_int)}\n    \
+                        overflow address: {hex(write_addr_int)}\n   \
+                        seedinput offset: {state.taintengine.taint_dict[write_addr_int]}")
+                state.taintengine.mark_offset = state.taintengine.taint_dict[write_addr_int]
+                
     def _loc_in_heap_range(self, state, loc: int):
             heaps = state.globals["heap"].items()
             for heap_addr, v in heaps:

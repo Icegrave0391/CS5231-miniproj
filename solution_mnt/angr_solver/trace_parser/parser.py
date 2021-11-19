@@ -1,19 +1,35 @@
 import logging
 from typing import List
+from pathlib import Path
+
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
 class Parser:
 
-    def __init__(self, fpath="/solution_mnt/angr_solver/tracefile") -> None:
+    def __init__(self, bpath) -> None:
         self._bb_list: List[int] = []
-        self.fpath = fpath
+        self.fpath = self._resolve_trace_path(bpath)
     
     @property
     def bb_list(self):
         if not self._bb_list:
             self._resolve()
         return self._bb_list
+
+    def _resolve_trace_path(self, bpath: str):
+        binary_path = Path(bpath)
+        binary_name = binary_path.name
+        trace_dir = Path("/solution_mnt/dynamorio_tracers/build")
+        if not trace_dir.is_dir():
+            raise FileNotFoundError("Please build DynamoRIO first.")
+        
+        for path in trace_dir.iterdir():
+            fname = path.name
+            if path.is_file() and fname.find(binary_name) >= 0 and fname.find("instrace") >= 0:
+                return str(path)
+        
+        raise FileExistsError("Please run DynamoRIO instrace_simple first.")
 
     def _resolve(self):
         log.debug(f"Start resolving basic block list...")

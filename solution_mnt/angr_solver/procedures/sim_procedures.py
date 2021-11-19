@@ -5,7 +5,7 @@ from angr.state_plugins import heap, inspect
 from cle.backends.externs.simdata.io_file import io_file_data_for_arch
 from angr.storage.file import SimFileDescriptor
 log = logging.getLogger(__name__)
-log.setLevel(logging.DEBUG)
+log.setLevel(logging.WARNING)
 
 
 def is_inline_proc(proc: angr.SimProcedure):
@@ -132,27 +132,30 @@ class Strcpy(angr.SimProcedure):
         strlen = angr.SIM_PROCEDURES['libc']['strlen']
         strncpy = angr.SIM_PROCEDURES['libc']['strncpy']
         src_len = self.inline_call(strlen, src)
+        str_len_int = self.state.solver.eval(src_len.ret_expr)
+
+        src_addr_int = self.state.solver.eval(src)
         dst_addr_int = self.state.solver.eval(dst)
-        # taint propagate
+        # memcpy
+        src_content = self.state.memory.load(src_addr_int, str_len_int, inspect=True)
+        self.state.memory.store(dst_addr_int, src_content, str_len_int, inspect=True)
+        
+        # check logic has moved to memcheck_plugin
+        # for heap_addr, v in self.state.globals["heap"].items():
+        #     heap_sz, valid = v[0], v[1]
+        #     if dst_addr_int in range(heap_addr, heap_addr + heap_sz):
+        #         # write to heap, check
+                
+        #         if (dst_addr_int + str_len_int - 1) <= heap_addr + heap_sz:
+        #             break
 
+        #         # invalid write
+        #         log.critical(f"HEAP ERROR.\n    \
+        #                 write content: {self.state.memory.load(src, str_len_int)}\n    \
+        #                 insn address: {hex(self.state.addr)}\n   \
+        #                 mem address: {hex(dst_addr_int)}")
+        #         import IPython; IPython.embed()
 
-        # check invalid heap strcpy
-
-        for heap_addr, v in self.state.globals["heap"].items():
-            heap_sz, valid = v[0], v[1]
-            if dst_addr_int in range(heap_addr, heap_addr + heap_sz):
-                # write to heap, check
-                str_len_int = self.state.solver.eval(src_len.ret_expr)
-                if (dst_addr_int + str_len_int - 1) <= heap_addr + heap_sz:
-                    break
-                # invalid write
-                log.critical(f"HEAP ERROR.\n    \
-                        write content: {self.state.memory.load(src, str_len_int)}\n    \
-                        insn address: {hex(self.state.addr)}\n   \
-                        mem address: {hex(dst_addr_int)}")
-                import IPython; IPython.embed()
-
-
-
-        ret_expr = self.inline_call(strncpy, dst, src, src_len.ret_expr+1, src_len=src_len.ret_expr).ret_expr
-        return ret_expr
+        # ret_expr = self.inline_call(strncpy, dst, src, src_len.ret_expr+1, src_len=src_len.ret_expr).ret_expr
+        # import IPython; IPython.embed()
+        return dst
