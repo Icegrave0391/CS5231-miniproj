@@ -1,0 +1,12 @@
+=====================================
+Fri Nov 19 20:31:01 +08 2021
+Commit: 68415229ea95094f6b24ecd22dcfe8165631ead3
+--- check SID file
+# SID: /home/student/git_repos/judgetools/wrkdir/tempcheck/SID
+[OK] solution_mnt exists
+[OK] .gitignore exists
+[OK] Dockerfile exists
+[OK] Dockerfile seems OK
+[OK] solution_mnt/main.sh exists
+[OK] solution_mnt/main.sh seems OK
+(0) Judge request queued for 2021-11-19.
