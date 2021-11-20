@@ -14,7 +14,7 @@ from angr_solver.procedure_manager import ProcedureManager
 from angr_solver.taint_annos import *
 
 log = logging.getLogger(__name__)
-log.setLevel(logging.WARNING)
+log.setLevel(logging.DEBUG)
 
 TARGET_BINARY = sys.argv[1]
 SEED_INPUT_FILE = sys.argv[2]
@@ -154,4 +154,4 @@ if __name__ == "__main__":
         with open(SOLUTION_INPUT_FILE, "wb") as fm:
             fm.write(simcontent_copy)
 
-    import IPython; IPython.embed() 
+
