@@ -1,0 +1,333 @@
+--- read judge hashes for 2021-11-22-eval e0868988:
+--- evaluating 92a86b2123ccb1512d417f5fbe4425e72149e22b
+--- decompress judge commit to evaluation directory
+--- check sid
+--- build docker image
+# Build Docker Image
+Untagged: cs5231-miniproj-e0868988:v1
+Sending build context to Docker daemon  3.584kB
+Step 1/4 : FROM cs5231ta/cs5231-miniproj:v1
+ ---> dc6dc069b864
+Step 2/4 : RUN export DEBIAN_FRONTEND="noninteractive" &&     apt-get update && apt-get -y install libsnappy-dev zlib1g-dev
+ ---> Using cache
+ ---> dd5f80cb84bc
+Step 3/4 : RUN echo "source /solution_mnt/bashrc" >> "/root/.bashrc" &&     echo "source /solution_mnt/gdbinit" >> "/root/.gdbinit"
+ ---> Using cache
+ ---> f6ccf0e9cc7c
+Step 4/4 : CMD ["tail", "-f", "/dev/null"]
+ ---> Using cache
+ ---> 76d4fefb4eee
+Successfully built 76d4fefb4eee
+Successfully tagged cs5231-miniproj-e0868988:v1
+
+--- copy runner script to solution_mnt
+--- remove old solution files
+
+========== run testcase A0 ==========
+--- run docker container
+# Create Temporary Eval Container from Image and Start
+# network none, memory 4g, cpu 1
+48688964ce9d595b6a152b2cbebd2ee26429c990c20f9914136aadfdb4b4453f
+
+--- start disk monitoring
+--- found build.sh. Run build.sh with 20 seconds time limit.
+--- elapsed: 0s, memory: 0.00GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker exec done. time_elapsed: 1
+--- cmd: bash ./_ta_runner.sh /testcases_mnt/PartA/manual0 /testcases_mnt/PartA/manual0_seedinput TARGET_BINARY:INPUT_FILE 0x4a123d8 0x41 /tmp/manual0_solutioninput_12345678901
+--- elapsed: 0s, memory: 0.10GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker exec done. time_elapsed: 1
+--- testcase return code: 0
+--- copy solution file to TA's check path
+
+--- stop docker container
+# Stop Container (send signal and wait)
+cs5231_e0868988_container
+
+--- clean-up
+# Remove Container
+cs5231_e0868988_container
+
+
+========== run testcase A1 ==========
+--- run docker container
+# Create Temporary Eval Container from Image and Start
+# network none, memory 4g, cpu 1
+825a884ff76d6276f999d71263be425655f4655bfecab685cfa7663f67a945dd
+
+--- start disk monitoring
+--- found build.sh. Run build.sh with 20 seconds time limit.
+--- elapsed: 0s, memory: 0.00GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker exec done. time_elapsed: 1
+--- cmd: bash ./_ta_runner.sh /testcases_mnt/PartA/manual1 /testcases_mnt/PartA/manual1_seedinput TARGET_BINARY:INPUT_FILE 0x4a2ba42 0x41 /tmp/manual1_solutioninput_12345678901
+--- elapsed: 0s, memory: 0.06GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 10s, memory: 1.67GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker exec done. time_elapsed: 18
+--- testcase return code: 0
+--- copy solution file to TA's check path
+
+--- stop docker container
+# Stop Container (send signal and wait)
+cs5231_e0868988_container
+
+--- clean-up
+# Remove Container
+cs5231_e0868988_container
+
+
+========== run testcase A2 ==========
+--- run docker container
+# Create Temporary Eval Container from Image and Start
+# network none, memory 4g, cpu 1
+ab748021754b09aa420c166a9605bae0da1dd3744c2d0cc4cb2d421f1e7444aa
+
+--- start disk monitoring
+--- found build.sh. Run build.sh with 20 seconds time limit.
+--- elapsed: 0s, memory: 0.00GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker exec done. time_elapsed: 1
+--- cmd: bash ./_ta_runner.sh /testcases_mnt/PartA/manual2 /testcases_mnt/PartA/manual2_seedinput TARGET_BINARY:INPUT_FILE 0x4a22530 0x41 /tmp/manual2_solutioninput_12345678901
+--- elapsed: 0s, memory: 0.36GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 10s, memory: 0.28GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 20s, memory: 0.37GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 30s, memory: 0.38GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 40s, memory: 0.41GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 50s, memory: 0.44GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 60s, memory: 0.45GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 70s, memory: 0.48GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 80s, memory: 0.50GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 90s, memory: 0.54GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 100s, memory: 0.62GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 110s, memory: 0.67GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 120s, memory: 0.67GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 130s, memory: 0.68GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 140s, memory: 0.68GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 150s, memory: 0.75GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 160s, memory: 0.76GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 170s, memory: 0.80GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 180s, memory: 0.82GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker TIMEOUT when executing bash ./_ta_runner.sh /testcases_mnt/PartA/manual2 /testcases_mnt/PartA/manual2_seedinput TARGET_BINARY:INPUT_FILE 0x4a22530 0x41 /tmp/manual2_solutioninput_12345678901.
+--- testcase return code: None
+
+--- stop docker container
+# Stop Container (send signal and wait)
+cs5231_e0868988_container
+
+--- clean-up
+# Remove Container
+cs5231_e0868988_container
+
+
+========== run testcase A3 ==========
+--- run docker container
+# Create Temporary Eval Container from Image and Start
+# network none, memory 4g, cpu 1
+c6146923d79d0e8763b61ede8e7b8fc67456bbc682fc1df7041d87991d044e07
+
+--- start disk monitoring
+--- found build.sh. Run build.sh with 20 seconds time limit.
+--- elapsed: 0s, memory: 0.00GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker exec done. time_elapsed: 1
+--- cmd: bash ./_ta_runner.sh /testcases_mnt/PartA/manual3 /testcases_mnt/PartA/manual3_seedinput TARGET_BINARY:INPUT_FILE 0x4a33818 0x41 /tmp/manual3_solutioninput_12345678901
+--- elapsed: 0s, memory: 0.09GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 10s, memory: 0.12GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 20s, memory: 0.14GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 30s, memory: 0.15GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 40s, memory: 0.17GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 50s, memory: 0.19GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 60s, memory: 0.20GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 70s, memory: 0.21GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 80s, memory: 0.23GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 90s, memory: 0.24GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 100s, memory: 0.25GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 110s, memory: 0.27GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 120s, memory: 0.28GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 130s, memory: 0.29GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 140s, memory: 0.30GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 150s, memory: 0.31GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 160s, memory: 0.32GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 170s, memory: 0.32GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 180s, memory: 0.33GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker TIMEOUT when executing bash ./_ta_runner.sh /testcases_mnt/PartA/manual3 /testcases_mnt/PartA/manual3_seedinput TARGET_BINARY:INPUT_FILE 0x4a33818 0x41 /tmp/manual3_solutioninput_12345678901.
+--- testcase return code: None
+
+--- stop docker container
+# Stop Container (send signal and wait)
+cs5231_e0868988_container
+
+--- clean-up
+# Remove Container
+cs5231_e0868988_container
+
+
+========== run testcase B1 ==========
+--- run docker container
+# Create Temporary Eval Container from Image and Start
+# network none, memory 4g, cpu 1
+18ebd090268c626c0d6f5f2c1ed98b780d74a1638e632fae96c573bf4e18c1e5
+
+--- start disk monitoring
+--- found build.sh. Run build.sh with 20 seconds time limit.
+--- elapsed: 0s, memory: 0.00GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker exec done. time_elapsed: 1
+--- cmd: bash ./_ta_runner.sh /testcases_mnt/PartB/real1/rgb2ycbcr /testcases_mnt/PartB/real1/exploit.tif TARGET_BINARY:INPUT_FILE:/tmp/foo.tif 0x4de515c 0x41 /tmp/real1_solutioninput_1234567890123
+--- elapsed: 0s, memory: 0.01GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker exec done. time_elapsed: 1
+--- testcase return code: 1
+
+--- stop docker container
+# Stop Container (send signal and wait)
+cs5231_e0868988_container
+
+--- clean-up
+# Remove Container
+cs5231_e0868988_container
+
+
+========== run testcase A4 ==========
+--- run docker container
+# Create Temporary Eval Container from Image and Start
+# network none, memory 4g, cpu 1
+68341c27db165fc9c64a5dd7125f701ac531c7248b0b7d0312da2a50f011fbee
+
+--- start disk monitoring
+--- found build.sh. Run build.sh with 20 seconds time limit.
+--- elapsed: 0s, memory: 0.00GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker exec done. time_elapsed: 1
+--- cmd: bash ./_ta_runner.sh /testcases_mnt/EvalA/manual4 /testcases_mnt/EvalA/manual4_seedinput TARGET_BINARY:INPUT_FILE 0x4a2894a 0x41 /tmp/manual4_solutioninput_12345678901
+--- elapsed: 0s, memory: 0.06GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 10s, memory: 1.72GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker exec done. time_elapsed: 11
+--- testcase return code: 0
+--- copy solution file to TA's check path
+
+--- stop docker container
+# Stop Container (send signal and wait)
+cs5231_e0868988_container
+
+--- clean-up
+# Remove Container
+cs5231_e0868988_container
+
+
+========== run testcase A5 ==========
+--- run docker container
+# Create Temporary Eval Container from Image and Start
+# network none, memory 4g, cpu 1
+0119f79ee8879ac610caee7f90d76216f1f6e94fd4ae0209ab4d4dddf50c8fd4
+
+--- start disk monitoring
+--- found build.sh. Run build.sh with 20 seconds time limit.
+--- elapsed: 0s, memory: 0.00GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker exec done. time_elapsed: 1
+--- cmd: bash ./_ta_runner.sh /testcases_mnt/EvalA/manual5 /testcases_mnt/EvalA/manual5_seedinput TARGET_BINARY:INPUT_FILE 0x4a2252e 0x41 /tmp/manual5_solutioninput_12345678901
+--- elapsed: 0s, memory: 0.02GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 10s, memory: 0.27GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 20s, memory: 0.29GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 30s, memory: 0.29GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 40s, memory: 0.33GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 50s, memory: 0.35GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 60s, memory: 0.37GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 70s, memory: 0.46GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 80s, memory: 0.46GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 90s, memory: 0.47GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 100s, memory: 0.55GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 110s, memory: 0.61GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 120s, memory: 0.61GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 130s, memory: 0.61GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 140s, memory: 0.69GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 150s, memory: 0.79GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 160s, memory: 0.79GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 170s, memory: 0.83GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- elapsed: 180s, memory: 0.84GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- docker TIMEOUT when executing bash ./_ta_runner.sh /testcases_mnt/EvalA/manual5 /testcases_mnt/EvalA/manual5_seedinput TARGET_BINARY:INPUT_FILE 0x4a2252e 0x41 /tmp/manual5_solutioninput_12345678901.
+--- testcase return code: None
+
+--- stop docker container
+# Stop Container (send signal and wait)
+cs5231_e0868988_container
+
+--- clean-up
+# Remove Container
+cs5231_e0868988_container
+
+
+========== run testcase A6 ==========
+--- run docker container
+# Create Temporary Eval Container from Image and Start
+# network none, memory 4g, cpu 1
+7caba802d08141a47fabf26ab2604c8f32f298e25f1cbd7ad125a9b59d816a5f
+
+--- start disk monitoring
+--- found build.sh. Run build.sh with 20 seconds time limit.
+--- elapsed: 0s, memory: 0.00GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- docker exec done. time_elapsed: 1
+--- cmd: bash ./_ta_runner.sh /testcases_mnt/EvalA/manual6 /testcases_mnt/EvalA/manual6_seedinput TARGET_BINARY:INPUT_FILE 0x4a337f8 0x41 /tmp/manual6_solutioninput_12345678901
+--- elapsed: 0s, memory: 0.05GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 10s, memory: 0.12GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 20s, memory: 0.14GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 30s, memory: 0.15GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 40s, memory: 0.17GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 50s, memory: 0.18GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 60s, memory: 0.20GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 70s, memory: 0.21GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 80s, memory: 0.23GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 90s, memory: 0.24GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 100s, memory: 0.25GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 110s, memory: 0.27GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 120s, memory: 0.28GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 130s, memory: 0.29GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 140s, memory: 0.30GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 150s, memory: 0.31GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 160s, memory: 0.31GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 170s, memory: 0.32GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- elapsed: 180s, memory: 0.33GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker TIMEOUT when executing bash ./_ta_runner.sh /testcases_mnt/EvalA/manual6 /testcases_mnt/EvalA/manual6_seedinput TARGET_BINARY:INPUT_FILE 0x4a337f8 0x41 /tmp/manual6_solutioninput_12345678901.
+--- testcase return code: None
+
+--- stop docker container
+# Stop Container (send signal and wait)
+cs5231_e0868988_container
+
+--- clean-up
+# Remove Container
+cs5231_e0868988_container
+
+
+========== run testcase B2 ==========
+--- run docker container
+# Create Temporary Eval Container from Image and Start
+# network none, memory 4g, cpu 1
+e6ed783feb3c6925f3c11f79fe2970edbd017de6a2a96c25a29f7b29c5c3196f
+
+--- start disk monitoring
+--- found build.sh. Run build.sh with 20 seconds time limit.
+--- elapsed: 0s, memory: 0.00GB/4.00GB, disk_usage: 0.10GB/2.00GB
+--- docker exec done. time_elapsed: 1
+--- cmd: bash ./_ta_runner.sh /testcases_mnt/EvalB/real2/rgb2ycbcr /testcases_mnt/EvalB/real2/exploit.tif TARGET_BINARY:INPUT_FILE:/tmp/bar.tif 0x4de515c 0x41 /tmp/real2_solutioninput_1234567890123
+--- elapsed: 0s, memory: 0.05GB/4.00GB, disk_usage: 0.00GB/2.00GB
+--- docker exec done. time_elapsed: 1
+--- testcase return code: 1
+
+--- stop docker container
+# Stop Container (send signal and wait)
+cs5231_e0868988_container
+
+--- clean-up
+# Remove Container
+cs5231_e0868988_container
+
+--- All done
+=============== SOLUTION CHECK BEGIN ===============
+A0 VALID_SOLUTION_FILE.  EXPECTED: 0x4a123d8 0x41
+    LASTLINE: OVERWRITE_ADDR=0x4a123d8 OVERWRITE_VALUE=0x41
+    SUCCESS
+    
+A1 VALID_SOLUTION_FILE.  EXPECTED: 0x4a2ba42 0x41
+    LASTLINE: OVERWRITE_ADDR=0x4a2ba42 OVERWRITE_VALUE=0x41
+    SUCCESS
+    
+A4 VALID_SOLUTION_FILE.  EXPECTED: 0x4a2894a 0x41
+    LASTLINE: OVERWRITE_ADDR=0x4a2894a OVERWRITE_VALUE=0x41
+    SUCCESS
+    
+Testcases not listed (if any) are also failed cases.
+=============== SOLUTION CHECK END ===============
